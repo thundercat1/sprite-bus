@@ -28,6 +28,7 @@ class Bus {
       right: 0,
       left: 1,
       down: 2,
+      up: 3,
     };
   }
 
@@ -89,16 +90,32 @@ class Bus {
   chooseNewDestination() {
     var canvas = document.getElementById("mapCanvas");
     this.destination = {
-      x: Math.random() * canvas.width,
+      x: Math.random() * canvas.width * 0.8,
       y: Math.random() * canvas.height,
     };
+    // this.destination = {
+    //   x: 50,
+    //   y: 1000,
+    // };
     const angleToDestination = Math.atan(
       (this.destination.y - this.y) / (this.destination.x - this.x)
     );
-    if (Math.abs(angleToDestination) > 0.25 * Math.PI) {
+    console.log(angleToDestination);
+    if (Math.abs(angleToDestination) > 0.2 * 0.5 * Math.PI) {
+      console.log(
+        "up or down. destination",
+        this.destination.y,
+        "this",
+        this.y
+      );
+      if (this.destination.y < this.y) {
+        this.animationDirection = "up";
+        return;
+      }
       this.animationDirection = "down";
       return;
     }
+
     if (this.destination.x > this.x) {
       this.animationDirection = "right";
       return;
@@ -136,5 +153,5 @@ backgroundImage.src =
 backgroundImage.onload = loader.registerImageLoaded;
 
 const busSpritesheet = new Image();
-busSpritesheet.src = "./van-sheet.png";
+busSpritesheet.src = "./van.png";
 busSpritesheet.onload = loader.registerImageLoaded;
