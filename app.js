@@ -93,14 +93,10 @@ class Bus {
       x: Math.random() * canvas.width * 0.8,
       y: Math.random() * canvas.height,
     };
-    // this.destination = {
-    //   x: 50,
-    //   y: 1000,
-    // };
     const angleToDestination = Math.atan(
       (this.destination.y - this.y) / (this.destination.x - this.x)
     );
-    if (Math.abs(angleToDestination) > 0.65 * 0.5 * Math.PI) {
+    if (Math.abs(angleToDestination) > 0.75 * 0.5 * Math.PI) {
       if (this.destination.y < this.y) {
         this.animationDirection = "up";
         return;
