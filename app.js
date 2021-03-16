@@ -136,5 +136,5 @@ backgroundImage.src =
 backgroundImage.onload = loader.registerImageLoaded;
 
 const busSpritesheet = new Image();
-busSpritesheet.src = "/van-sheet.png";
+busSpritesheet.src = "./van-sheet.png";
 busSpritesheet.onload = loader.registerImageLoaded;
