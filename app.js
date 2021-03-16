@@ -67,7 +67,6 @@ class Bus {
   }
 
   updatePosition() {
-    console.log("position: ", this.x, this.y, "Destionation", this.destination);
     const distance =
       (this.destination.x - this.x) ^
       (2 + (this.destination.y - this.y)) ^
@@ -83,8 +82,8 @@ class Bus {
       y: (this.destination.y - this.y) / distance,
     };
 
-    this.x += vectorToDestination.x;
-    this.y += vectorToDestination.y;
+    this.x += vectorToDestination.x * 3;
+    this.y += vectorToDestination.y * 3;
   }
 
   chooseNewDestination() {
@@ -96,7 +95,8 @@ class Bus {
     const angleToDestination = Math.atan(
       (this.destination.y - this.y) / (this.destination.x - this.x)
     );
-    if (Math.abs(angleToDestination) > 0.5 * Math.PI) {
+    console.log("got angle", angleToDestination);
+    if (Math.abs(angleToDestination) > 0.25 * Math.PI) {
       this.animationDirection = "down";
       return;
     }
@@ -118,7 +118,6 @@ class ImageLoader {
 
   registerImageLoaded() {
     this._imagesLoaded++;
-    console.log("new total count: ", this._imagesLoaded);
     if (this._imagesLoaded === this._imagesToLoad) {
       this.onFinished();
     }
