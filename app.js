@@ -24,9 +24,11 @@ class Bus {
     this.animationFrameCount = 4;
     this.animationFrameSpeed = 8; // fps
 
-    this.rightAnimationRow = 0;
-    this.leftAnimationRow = 1;
-    this.downAnimationRow = 2;
+    this.directionalAnimationRows = {
+      right: 0,
+      left: 1,
+      down: 2,
+    };
   }
 
   draw(timestamp) {
@@ -50,7 +52,8 @@ class Bus {
     ctx.drawImage(
       this.busSpritesheet,
       this.animationFrame * this.animationFrameWidth,
-      this.rightAnimationRow * this.animationFrameHeight,
+      this.directionalAnimationRows[this.animationDirection] *
+        this.animationFrameHeight,
       this.animationFrameWidth,
       this.animationFrameHeight,
       this.x,
@@ -80,11 +83,7 @@ class Bus {
       y: (this.destination.y - this.y) / distance,
     };
 
-    const angleToDestination = Math.acos(
-      (this.destination.y - this.y) / distance
-    );
-
-    if (angleToDestination) this.x += vectorToDestination.x;
+    this.x += vectorToDestination.x;
     this.y += vectorToDestination.y;
   }
 
@@ -94,6 +93,18 @@ class Bus {
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
     };
+    const angleToDestination = Math.atan(
+      (this.destination.y - this.y) / (this.destination.x - this.x)
+    );
+    if (Math.abs(angleToDestination) > 0.5 * Math.PI) {
+      this.animationDirection = "down";
+      return;
+    }
+    if (this.destination.x > this.x) {
+      this.animationDirection = "right";
+      return;
+    }
+    this.animationDirection = "left";
   }
 }
 
