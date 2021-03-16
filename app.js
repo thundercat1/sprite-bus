@@ -95,7 +95,6 @@ class Bus {
     const angleToDestination = Math.atan(
       (this.destination.y - this.y) / (this.destination.x - this.x)
     );
-    console.log("got angle", angleToDestination);
     if (Math.abs(angleToDestination) > 0.25 * Math.PI) {
       this.animationDirection = "down";
       return;
